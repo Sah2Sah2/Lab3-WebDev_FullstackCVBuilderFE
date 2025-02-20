@@ -1,0 +1,140 @@
+
+
+/* Root variables for easy theme customization */
+:root {
+    --primary-color: #2e4a25; /* Dark green */
+    --secondary-color: #d4af37; /* Gold */
+    --accent-color: #6c9653; /* Soft green */
+    --background-color: #f4f1de; 
+    --text-color: #1c1c1c; 
+    --link-color: #d4af37; 
+    --hover-glow: rgba(212, 175, 55, 0.8); 
+    --border-radius: 12px;
+    --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* General Styling */
+body {
+    font-family: 'Triforce', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    font-family: 'Hylian Serif', Georgia, serif;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+    a:hover {
+        color: var(--hover-glow);
+        text-shadow: 0px 0px 6px var(--hover-glow);
+    }
+
+/* Buttons  */
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease-in-out;
+}
+
+    button:hover {
+        background-color: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+/* Containers & Cards */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 15px;
+    margin: 10px 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+/* Navigation Bar */
+.navbar {
+    background-color: var(--primary-color);
+    padding: 15px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+}
+
+    .navbar a {
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+    }
+/* Cards for Projects & Skills  */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    max-width: 320px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .container {
+        width: 80%;
+    }
+
+    .navbar {
+        text-align: left;
+    }
+
+        .navbar a {
+            padding: 15px;
+        }
+}

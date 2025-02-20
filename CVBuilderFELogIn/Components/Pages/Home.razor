@@ -1,0 +1,96 @@
+﻿@page "/"
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@using Microsoft.AspNetCore.Components.Authorization
+@using CVBuilderFELogIn.Models
+@using CVBuilderFELogIn.Services
+
+<PageTitle>Home</PageTitle>
+
+<div class="content">
+    <!-- Projects Section -->
+    <h4>Projects</h4>
+    @if (projects == null)
+    {
+        <p>Loading Projects...</p>
+    }
+    else if (projects.Count == 0)
+    {
+        <p>No Projects found.</p>
+    }
+    else
+    {
+        <div class="card-container">
+            @foreach (var project in projects)
+            {
+                <div class="card">
+                    <h5>@project.Name</h5>
+                    <p><strong>Course:</strong> @project.Course</p>
+                    <p><strong>Description:</strong> @project.Description</p>
+                    <p><a href="@project.GitHubLink" target="_blank">GitHub Link</a></p>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Skills Section -->
+    <h4>Skills</h4>
+    @if (skills == null)
+    {
+        <p>Loading Skills...</p>
+    }
+    else if (skills.Count == 0)
+    {
+        <p>No Skills found.</p>
+    }
+    else
+    {
+        <div class="card-container">
+            @foreach (var skill in skills)
+            {
+                <div class="card">
+                    <h5>@skill.Name</h5>
+                    <p><strong>Level:</strong> @skill.SkillLevel</p>
+                    <p><strong>Years of Experience:</strong> @skill.YearsOfExperience</p>
+                </div>
+            }
+        </div>
+    }
+
+    @if (loadError)
+    {
+        <p style="color:red;">There was an error loading the data. Please try again later.</p>
+    }
+</div>
+
+@code {
+    private List<Project> projects;
+    private List<Skill> skills;
+    private bool loadError = false;
+    private bool isAdminChecked = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            projects = await ApiService.GetProjectsAsync();
+            skills = await ApiService.GetSkillsAsync();
+
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authenticationState.User;
+
+            if (user.Identity.IsAuthenticated && user.IsInRole("Admin"))
+            {
+                NavigationManager.NavigateTo("/admin");
+            }
+
+            isAdminChecked = true;
+        }
+        catch (Exception ex)
+        {
+            loadError = true;
+            Console.WriteLine($"Error loading data: {ex.Message}");
+        }
+    }
+}

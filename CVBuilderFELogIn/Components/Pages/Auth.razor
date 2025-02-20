@@ -1,7 +1,9 @@
 ﻿@page "/auth"
-
 @using Microsoft.AspNetCore.Authorization
-
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
 <PageTitle>Auth</PageTitle>
@@ -9,5 +11,49 @@
 <h1>You are authenticated</h1>
 
 <AuthorizeView>
-    Hello @context.User.Identity?.Name!
+    <Authorized>
+        <p>Hello @context.User.Identity?.Name!</p>
+    </Authorized>
 </AuthorizeView>
+
+@code {
+    private bool hasNavigated = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!hasNavigated)
+        {
+            hasNavigated = true;
+            await CheckUserRoleAndRedirect();
+        }
+    }
+
+    private async Task CheckUserRoleAndRedirect()
+    {
+        // Get authentication state
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            // Log to check the user's role
+            Console.WriteLine($"Authenticated user: {user.Identity.Name}");
+
+            // Check for Admin role
+            if (user.IsInRole("Admin"))
+            {
+                Console.WriteLine("User is an Admin. Redirecting to /admin.");
+                Navigation.NavigateTo("/admin");
+            }
+            else
+            {
+                Console.WriteLine("User is not an Admin. Redirecting to /home.");
+                Navigation.NavigateTo("/home");
+            }
+        }
+        else
+        {
+            Console.WriteLine("User is not authenticated.");
+        }
+    }
+}

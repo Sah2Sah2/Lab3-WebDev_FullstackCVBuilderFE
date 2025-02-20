@@ -1,7 +1,130 @@
 ﻿@page "/admin"
+@using CVBuilderFELogIn.Services
+@using CVBuilderFELogIn.Models
 @using Microsoft.AspNetCore.Authorization
+@inject ApiService ApiService
+@inject NavigationManager Navigation
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Admin Panel</h3>
+<div class="admin-panel">
+    <h3 class="admin-title">Admin Panel</h3>
 
-<p>Prova</p>
+    <div class="section">
+        <h4>Projects</h4>
+        <div class="form">
+            <label for="projectName">Project Name</label>
+            <input type="text" id="projectName" @bind="newProject.Name" />
+
+            <label for="projectDescription">Project Description</label>
+            <textarea id="projectDescription" @bind="newProject.Description"></textarea>
+
+            <button class="btn btn-submit" @onclick="CreateProject">Create Project</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h4>Skills</h4>
+        <div class="form">
+            <label for="skillName">Skill Name</label>
+            <input type="text" id="skillName" @bind="newSkill.Name" />
+
+            <label for="skillExperience">Years of Experience</label>
+            <input type="number" id="skillExperience" @bind="newSkill.YearsOfExperience" />
+
+            <label for="skillLevel">Skill Level</label>
+            <input type="number" id="skillLevel" @bind="newSkill.SkillLevel" />
+
+            <button class="btn btn-submit" @onclick="CreateSkill">Create Skill</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h4>Delete Project</h4>
+        <div>
+            <select @bind="selectedProjectId">
+                <option value="">Select a project to delete</option>
+                @foreach (var project in projects)
+                {
+                    <option value="@project.Id">@project.Name</option>
+                }
+            </select>
+            <button class="btn btn-delete" @onclick="DeleteProject">Delete Project</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h4>Delete Skill</h4>
+        <div>
+            <select @bind="selectedSkillId">
+                <option value="">Select a skill to delete</option>
+                @foreach (var skill in skills)
+                {
+                    <option value="@skill.Id">@skill.Name</option>
+                }
+            </select>
+            <button class="btn btn-delete" @onclick="DeleteSkill">Delete Skill</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private Project newProject = new Project();
+    private Skill newSkill = new Skill();
+    private int selectedProjectId;
+    private int selectedSkillId;
+
+    private List<Project> projects = new List<Project>();
+    private List<Skill> skills = new List<Skill>();
+
+    // change design and layout 
+   
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await ApiService.GetProjectsAsync();
+        skills = await ApiService.GetSkillsAsync();
+    }
+
+    private async Task CreateProject()
+    {
+        var createdProject = await ApiService.CreateProjectAsync(newProject);
+      
+        newProject = new Project(); // Reset the form fields after submission
+        projects = await ApiService.GetProjectsAsync(); // Refresh the project list
+    }
+
+    private async Task DeleteProject()
+    {
+        if (selectedProjectId == 0)
+        {
+            // Add a mex with instruction later
+            return;
+        }
+
+        await ApiService.DeleteProjectAsync(selectedProjectId);
+       
+        projects = await ApiService.GetProjectsAsync(); // Refresh the project list
+        selectedProjectId = 0; // Reset selection
+    }
+
+    private async Task CreateSkill()
+    {
+        var createdSkill = await ApiService.CreateSkillAsync(newSkill);
+      
+        newSkill = new Skill(); // Reset the form fields after submission
+        skills = await ApiService.GetSkillsAsync(); // Refresh the skill list
+    }
+
+    private async Task DeleteSkill()
+    {
+        if (selectedSkillId == 0)
+        {
+            // You can show a message that a skill must be selected.
+            return;
+        }
+
+        await ApiService.DeleteSkillAsync(selectedSkillId);
+       
+        skills = await ApiService.GetSkillsAsync(); // Refresh the skill list
+        selectedSkillId = 0; // Reset selection
+    }
+}

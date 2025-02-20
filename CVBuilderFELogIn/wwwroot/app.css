@@ -1,16 +1,14 @@
-
-
 /* Root variables for easy theme customization */
 :root {
     --primary-color: #2e4a25; /* Dark green */
     --secondary-color: #d4af37; /* Gold */
     --accent-color: #6c9653; /* Soft green */
-    --background-color: #f4f1de; 
-    --text-color: #1c1c1c; 
-    --link-color: #d4af37; 
-    --hover-glow: rgba(212, 175, 55, 0.8); 
-    --border-radius: 12px;
-    --box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    --background-color: #f4f1de;
+    --text-color: #1c1c1c;
+    --link-color: #d4af37;
+    --hover-glow: rgba(212, 175, 55, 0.8);
+    --border-radius: 15px; /* Slightly larger for a softer look */
+    --box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1); /* Softer box shadow */
 }
 
 /* General Styling */
@@ -26,7 +24,8 @@ body {
 h1, h2, h3, h4 {
     font-family: 'Hylian Serif', Georgia, serif;
     color: var(--primary-color);
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }
 
 /* Links */
@@ -39,24 +38,28 @@ a {
 
     a:hover {
         color: var(--hover-glow);
-        text-shadow: 0px 0px 6px var(--hover-glow);
+        text-shadow: 0px 0px 8px var(--hover-glow);
     }
 
-/* Buttons  */
+/* Buttons */
 button {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 12px 18px;
-    font-size: 16px;
+    padding: 12px 20px;
+    font-size: 1rem;
     border-radius: var(--border-radius);
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.1s ease-in-out;
+    transition: background 0.3s ease, transform 0.1s ease-in-out, box-shadow 0.2s ease;
+    width: 100%;
+    text-align: center;
+    margin: 0;
 }
 
     button:hover {
         background-color: var(--accent-color);
         transform: scale(1.05);
+        box-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5);
     }
 
 /* Containers & Cards */
@@ -71,53 +74,166 @@ button {
     background: white;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    padding: 15px;
+    padding: 20px;
     margin: 10px 0;
     transition: transform 0.3s ease-in-out;
+    text-align: center;
 }
 
     .card:hover {
-        transform: scale(1.02);
+        transform: scale(1.05);
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h5 {
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 1rem;
+        color: var(--text-color);
     }
 
 /* Navigation Bar */
 .navbar {
     background-color: var(--primary-color);
-    padding: 15px;
+    padding: 16px;
     text-align: center;
     box-shadow: var(--box-shadow);
 }
 
     .navbar a {
         color: white;
-        padding: 10px;
-        font-size: 18px;
+        padding: 15px;
+        font-size: 1.1rem;
+        transition: color 0.3s ease-in-out;
     }
-/* Cards for Projects & Skills  */
+
+        .navbar a:hover {
+            color: var(--accent-color);
+        }
+
+/* Cards for Projects & Skills */
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
+    padding: 20px 0;
 }
 
 .card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    max-width: 320px;
+    max-width: 350px;
     text-align: center;
-    transition: transform 0.3s ease-in-out;
+    padding: 20px;
 }
 
-    .card:hover {
+/* Base styles for the admin panel */
+.admin-panel {
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Title */
+.admin-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Section header */
+h4 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Section buttons */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Button styling for admin panel */
+.btn {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Triforce', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s, transform 0.2s ease;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Create button (golden) */
+.btn-create {
+    background-color: var(--secondary-color); /* Gold */
+    color: white;
+}
+
+    .btn-create:hover {
+        background-color: #f1c24d; /* Light gold for hover */
         transform: scale(1.05);
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
     }
 
+/* Delete button (soft red) */
+.btn-delete {
+    background-color: #e74c3c; /* Soft red */
+    color: white;
+}
 
-/* Responsive */
-@media (max-width: 768px) {
+    .btn-delete:hover {
+        background-color: #f1948a; /* Light red for hover */
+        transform: scale(1.05);
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+/* Other buttons (soft green) */
+.btn-other {
+    background-color: var(--accent-color); /* Soft green */
+    color: white;
+}
+
+    .btn-other:hover {
+        background-color: #8abf7a; /* Lighter green for hover */
+        transform: scale(1.05);
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+/* Button focus state for accessibility */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8); /* Soft glow effect */
+}
+
+
+/* Mobile-specific adjustments */
+@media (max-width: 600px) {
+    .admin-panel {
+        padding: 12px;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .navbar a {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
     .card-container {
         flex-direction: column;
         align-items: center;
@@ -137,4 +253,9 @@ button {
         .navbar a {
             padding: 15px;
         }
+
+    .card-container {
+        flex-direction: row;
+        gap: 20px;
+    }
 }

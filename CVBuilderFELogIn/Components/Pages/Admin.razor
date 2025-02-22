@@ -23,12 +23,19 @@
             <label for="projectName">Project Name</label>
             <input type="text" id="projectName" @bind="newProject.Name" />
 
+            <label for="projectCourse">Course</label>
+            <input type="text" id="projectCourse" @bind="newProject.Course" />
+
             <label for="projectDescription">Project Description</label>
             <textarea id="projectDescription" @bind="newProject.Description"></textarea>
+
+            <label for="projectGitHub">GitHub Link</label>
+            <input type="text" id="projectGitHub" @bind="newProject.GitHubLink" />
 
             <button class="btn btn-submit" @onclick="CreateProject">Add</button>
         </div>
     </div>
+
 
     <div class="section">
         <h4>Skills</h4>

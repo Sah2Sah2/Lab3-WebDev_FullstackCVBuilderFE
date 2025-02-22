@@ -1,7 +1,9 @@
 ﻿@page "/"
+
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
+
 @using Microsoft.AspNetCore.Components.Authorization
 @using CVBuilderFELogIn.Models
 @using CVBuilderFELogIn.Services
@@ -56,11 +58,6 @@
                 </div>
             }
         </div>
-    }
-
-    @if (loadError)
-    {
-        <p style="color:red;">There was an error loading the data. Please try again later.</p>
     }
 </div>
 

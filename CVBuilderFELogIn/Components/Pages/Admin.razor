@@ -1,13 +1,21 @@
 ﻿@page "/admin"
+
 @using CVBuilderFELogIn.Services
 @using CVBuilderFELogIn.Models
 @using Microsoft.AspNetCore.Authorization
+
 @inject ApiService ApiService
 @inject NavigationManager Navigation
+@inject HttpClient Http
+
+@rendermode InteractiveServer
+
 @attribute [Authorize(Roles = "Admin")]
+
 
 <div class="admin-panel">
     <h3 class="admin-title">Admin Panel</h3>
+    <h2 class="admin-operations"> Add new skills and projects </h2>
 
     <div class="section">
         <h4>Projects</h4>
@@ -18,7 +26,7 @@
             <label for="projectDescription">Project Description</label>
             <textarea id="projectDescription" @bind="newProject.Description"></textarea>
 
-            <button class="btn btn-submit" @onclick="CreateProject">Create Project</button>
+            <button class="btn btn-submit" @onclick="CreateProject">Add</button>
         </div>
     </div>
 
@@ -34,7 +42,7 @@
             <label for="skillLevel">Skill Level</label>
             <input type="number" id="skillLevel" @bind="newSkill.SkillLevel" />
 
-            <button class="btn btn-submit" @onclick="CreateSkill">Create Skill</button>
+            <button class="btn btn-submit" @onclick="CreateSkill">Add</button>
         </div>
     </div>
 

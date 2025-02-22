@@ -1,0 +1,136 @@
+﻿/* Mobile-first  CSS */
+
+/* Body and General Layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Content Container */
+.content {
+    padding: 20px;
+}
+
+/* Headings */
+h4 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+h5 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.admin-icon {
+    text-align: right;
+    margin: 20px 0;
+}
+
+    .admin-icon a {
+        font-size: 24px;
+        color: #385d42;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        .admin-icon a:hover {
+            color: #78a46b; /* Change color on hover */
+        }
+
+/* Card Styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.card {
+    background-color: #ffffff;
+    border: 1px solid #d1d9b0; 
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .card:hover {
+        background-color: #FFD700;
+        transform: scale(1.03);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h5 {
+        color: #000000; 
+        font-size: 1.2rem;
+    }
+
+    .card p {
+        color: #5a6b47;
+        font-size: 1rem;
+    }
+
+    /* Links in Cards */
+    .card a {
+        color: #8B5E3C;
+        font-weight: bold;
+        font-size: 0.95rem;
+        text-decoration: none;
+    }
+
+        .card a:hover {
+            color: #3e8e41;
+            text-decoration: underline;
+        }
+
+
+/* Loading and No Data Messages */
+p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Error Message */
+.error {
+    color: red;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* Medium Screens (Tablets) */
+@media (min-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+    }
+}
+
+/* Large Screens (Desktops) */
+@media (min-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+    }
+
+    .content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h4 {
+        font-size: 2rem;
+    }
+
+    h5 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra Large Screens (Large Desktops) */
+@media (min-width: 1440px) {
+    .card-container {
+        grid-template-columns: repeat(4, 1fr); /* Four columns per row */
+    }
+}

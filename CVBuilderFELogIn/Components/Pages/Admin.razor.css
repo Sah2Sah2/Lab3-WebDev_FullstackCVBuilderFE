@@ -1,0 +1,129 @@
+﻿/* Admin Panel Styles - Zelda Soft Theme */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f7e6;
+    color: #4e4b3e;
+}
+
+.admin-panel {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    border: 1px solid #d1d9b0;
+}
+
+.admin-title {
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Garamond', serif;
+    color: #385d42;
+    margin-bottom: 10px;
+}
+
+.home-icon {
+    text-align: right;
+    margin: 20px 0;
+}
+
+    .home-icon a {
+        font-size: 24px;
+        color: #385d42;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+        .home-icon a:hover {
+            color: #78a46b; 
+        }
+
+.section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d1d9b0;
+}
+
+h2 {
+    font-size: 1.4em; 
+}
+
+h4 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    color: #3e563f;
+}
+
+.form label {
+    font-size: 1em;
+    display: block;
+    margin-bottom: 5px;
+    color: #385d42;
+}
+
+.form input,
+.form textarea,
+.form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #78a46b;
+    border-radius: 6px;
+    font-size: 1em;
+    background-color: #f9f9f9;
+}
+
+    .form input:focus,
+    .form textarea:focus,
+    .form select:focus {
+        background-color: #A8BCA3;
+        outline: none;
+        border-color: #3e8e41;
+    }
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block;
+    width: auto;
+    text-align: center;
+}
+
+.btn-submit {
+    background: #78a46b;
+    color: white;
+}
+
+    .btn-submit:hover {
+        background: #3e8e41;
+    }
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+    padding: 10px;
+   
+}
+
+    .btn-delete:hover {
+        background: #c82333;
+    }
+
+@media (min-width: 768px) {
+    .admin-panel {
+        width: 80%;
+        max-width: 1200px; 
+    }
+}

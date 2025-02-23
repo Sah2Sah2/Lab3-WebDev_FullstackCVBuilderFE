@@ -13,11 +13,8 @@
 @attribute [Authorize(Roles = "Admin")]
 
 <div class="admin-panel">
-    
-
     <h3 class="admin-title">Admin Panel</h3>
 
-    <!-- Home Icon -->
     <div class="home-icon">
         <a href="/" title="Landing Page">
             <i class="fas fa-home"></i>
@@ -26,6 +23,7 @@
 
     <h2 class="admin-operations"> Add new skills and projects </h2>
 
+    <!-- Projects Section -->
     <div class="section">
         <h4>Projects</h4>
         <div class="form">
@@ -43,9 +41,17 @@
 
             <button class="btn btn-submit" @onclick="CreateProject">Add</button>
         </div>
+
+        <!-- Confirmation Message for Project Creation -->
+        @if (!string.IsNullOrEmpty(confirmationMessageForCreateProject))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForCreateProject
+            </div>
+        }
     </div>
 
-
+    <!-- Skills Section -->
     <div class="section">
         <h4>Skills</h4>
         <div class="form">
@@ -60,8 +66,17 @@
 
             <button class="btn btn-submit" @onclick="CreateSkill">Add</button>
         </div>
+
+        <!-- Confirmation Message for Skill Creation -->
+        @if (!string.IsNullOrEmpty(confirmationMessageForCreateSkill))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForCreateSkill
+            </div>
+        }
     </div>
 
+    <!-- Delete Project Section -->
     <div class="section">
         <h4>Delete Project</h4>
         <div>
@@ -75,8 +90,17 @@
             <br />
             <button class="btn btn-delete" @onclick="DeleteProject">Delete</button>
         </div>
+
+        <!-- Confirmation Message for Project Deletion -->
+        @if (!string.IsNullOrEmpty(confirmationMessageForDeleteProject))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForDeleteProject
+            </div>
+        }
     </div>
 
+    <!-- Delete Skill Section -->
     <div class="section">
         <h4>Delete Skill</h4>
         <div>
@@ -87,11 +111,21 @@
                     <option value="@skill.Id">@skill.Name</option>
                 }
             </select>
-            <br /> 
+            <br />
             <button class="btn btn-delete" @onclick="DeleteSkill">Delete</button>
         </div>
+
+        <!-- Confirmation Message for Skill Deletion -->
+        @if (!string.IsNullOrEmpty(confirmationMessageForDeleteSkill))
+        {
+            <div class="confirmation-message success">
+                @confirmationMessageForDeleteSkill
+            </div>
+        }
     </div>
 </div>
+
+
 
 @code {
     private Project newProject = new Project();
@@ -102,7 +136,11 @@
     private List<Project> projects = new List<Project>();
     private List<Skill> skills = new List<Skill>();
 
-    // change design and layout 
+    private string confirmationMessageForCreateProject;
+    private string confirmationMessageForCreateSkill;
+    private string confirmationMessageForDeleteProject;
+    private string confirmationMessageForDeleteSkill;
+
    
     protected override async Task OnInitializedAsync()
     {
@@ -110,14 +148,19 @@
         skills = await ApiService.GetSkillsAsync();
     }
 
+    // CREATE PROJECT
     private async Task CreateProject()
     {
         var createdProject = await ApiService.CreateProjectAsync(newProject);
       
-        newProject = new Project(); // Reset the form fields after submission
-        projects = await ApiService.GetProjectsAsync(); // Refresh the project list
+        newProject = new Project(); 
+        projects = await ApiService.GetProjectsAsync(); 
+
+        confirmationMessageForCreateProject = "Project created successfully!";
+        confirmationMessageForDeleteProject = null; 
     }
 
+    // DELETE PROJECT
     private async Task DeleteProject()
     {
         if (selectedProjectId == 0)
@@ -127,18 +170,26 @@
 
         await ApiService.DeleteProjectAsync(selectedProjectId);
        
-        projects = await ApiService.GetProjectsAsync(); // Refresh the project list
-        selectedProjectId = 0; // Reset selection
+        projects = await ApiService.GetProjectsAsync(); 
+        selectedProjectId = 0; 
+
+        confirmationMessageForDeleteProject = "Project deleted successfully!";
+        confirmationMessageForCreateProject = null; 
     }
 
+    // CREATE SKILL 
     private async Task CreateSkill()
     {
         var createdSkill = await ApiService.CreateSkillAsync(newSkill);
       
-        newSkill = new Skill(); // Reset the form fields after submission
-        skills = await ApiService.GetSkillsAsync(); // Refresh the skill list
+        newSkill = new Skill();
+        skills = await ApiService.GetSkillsAsync(); 
+
+        confirmationMessageForDeleteSkill = null;
+        confirmationMessageForCreateSkill = "Skill created successfully!";
     }
 
+    // DELETE SKILL
     private async Task DeleteSkill()
     {
         if (selectedSkillId == 0)
@@ -148,7 +199,11 @@
 
         await ApiService.DeleteSkillAsync(selectedSkillId);
        
-        skills = await ApiService.GetSkillsAsync(); // Refresh the skill list
-        selectedSkillId = 0; // Reset selection
+        skills = await ApiService.GetSkillsAsync(); 
+        selectedSkillId = 0; 
+
+        confirmationMessageForDeleteSkill = "Skill deleted successfully!";
+        confirmationMessageForCreateSkill = null; 
+
     }
 }

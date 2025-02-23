@@ -121,6 +121,49 @@ h4 {
         background: #c82333;
     }
 
+/* Confirmation messages */
+.admin-panel .confirmation-message {
+    border-radius: 10px;
+    padding: 5px 15px;
+    font-size: 1.1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin-top: 10px; 
+    margin-bottom: 15px;
+}
+
+    .admin-panel .confirmation-message.success {
+        background-color: #a8d08d;
+        color: #2c3e50;
+        border: 1px solid #76a15d;
+    }
+
+        .admin-panel .confirmation-message.success:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+    .admin-panel .confirmation-message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+        .admin-panel .confirmation-message.error:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+
+/* For mobile-first design: */
+@media (max-width: 576px) {
+    .confirmation-message {
+        font-size: 1rem;
+        padding: 8px 16px; 
+    }
+}
+
+
 @media (min-width: 768px) {
     .admin-panel {
         width: 80%;

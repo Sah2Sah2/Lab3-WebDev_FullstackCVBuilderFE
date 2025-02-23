@@ -1,12 +1,5 @@
 ﻿/* Mobile-first  CSS */
 
-/* Body and General Layout */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
 
 /* Content Container */
 .content {
@@ -27,7 +20,10 @@ h5 {
 .admin-icon {
     text-align: right;
     margin: 20px 0;
+    position: relative;
+    z-index: 1;
 }
+
 
     .admin-icon a {
         font-size: 24px;
@@ -37,7 +33,7 @@ h5 {
     }
 
         .admin-icon a:hover {
-            color: #78a46b; /* Change color on hover */
+            color: #78a46b;
         }
 
 /* Card Styles */
@@ -101,13 +97,41 @@ p {
     margin-top: 20px;
 }
 
+/* Photo */
+.circle-image {
+    width: 120px; 
+    height: 120px; 
+    margin: 0 auto 30px auto; /* Center  and space below */
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+}
+
+    .circle-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+    }
+
+/* Section Spacing */
+.personal-info,
+.card-container {
+    margin-bottom: 40px; 
+}
+
 /* Medium Screens (Tablets) */
 @media (min-width: 768px) {
     .card-container {
-        grid-template-columns: repeat(2, 1fr); /* Two columns per row */
+        grid-template-columns: repeat(2, 1fr); 
     }
-}
 
+    .circle-image {
+        width: 120px; /
+        height: 120px;
+        margin: 0 auto 25px auto; 
+    }
+
+        
 /* Large Screens (Desktops) */
 @media (min-width: 1024px) {
     .card-container {
@@ -126,11 +150,23 @@ p {
     h5 {
         font-size: 1.5rem;
     }
+
+    .circle-image {
+        width: 150px; 
+        height: 150px;
+        margin: 0 auto 30px auto; 
+    }
 }
 
 /* Extra Large Screens (Large Desktops) */
 @media (min-width: 1440px) {
     .card-container {
         grid-template-columns: repeat(4, 1fr); /* Four columns per row */
+    }
+
+    .circle-image {
+        width: 200px; 
+        height: 200px;
+        margin: 0 auto 40px auto; 
     }
 }

@@ -10,11 +10,11 @@ Light Sage (Soft, tranquil greens) - #A8BCA3*/
 
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Garamond', serif;
     margin: 0;
     padding: 0;
-    background-color: #f1f7e6; 
-    color: #4e4b3e; 
+    background-color: #f1f7e6;
+    color: #4e4b3e;
     line-height: 1.6;
 }
 

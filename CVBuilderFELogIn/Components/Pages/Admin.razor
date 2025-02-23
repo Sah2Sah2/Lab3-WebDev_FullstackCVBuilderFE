@@ -13,19 +13,18 @@
 @attribute [Authorize(Roles = "Admin")]
 
 <div class="admin-panel">
-    <h3 class="admin-title">Admin Panel</h3>
-
+    
     <div class="home-icon">
         <a href="/" title="Landing Page">
             <i class="fas fa-home"></i>
         </a>
     </div>
 
-    <h2 class="admin-operations"> Add new skills and projects </h2>
+    <h3 class="admin-title">Admin Panel</h3>
 
     <!-- Projects Section -->
     <div class="section">
-        <h4>Projects</h4>
+        <h4>Add New Project</h4>
         <div class="form">
             <label for="projectName">Project Name</label>
             <input type="text" id="projectName" @bind="newProject.Name" />
@@ -53,7 +52,7 @@
 
     <!-- Skills Section -->
     <div class="section">
-        <h4>Skills</h4>
+        <h4>Add New Skill</h4>
         <div class="form">
             <label for="skillName">Skill Name</label>
             <input type="text" id="skillName" @bind="newSkill.Name" />
@@ -79,7 +78,7 @@
     <!-- Delete Project Section -->
     <div class="section">
         <h4>Delete Project</h4>
-        <div>
+        <div class="form">
             <select @bind="selectedProjectId">
                 <option value="">Select a project to delete</option>
                 @foreach (var project in projects)
@@ -103,7 +102,7 @@
     <!-- Delete Skill Section -->
     <div class="section">
         <h4>Delete Skill</h4>
-        <div>
+        <div class="form">
             <select @bind="selectedSkillId">
                 <option value="">Select a skill to delete</option>
                 @foreach (var skill in skills)
@@ -124,7 +123,6 @@
         }
     </div>
 </div>
-
 
 
 @code {
@@ -204,6 +202,5 @@
 
         confirmationMessageForDeleteSkill = "Skill deleted successfully!";
         confirmationMessageForCreateSkill = null; 
-
     }
 }

@@ -64,6 +64,7 @@
         color: #3B6AA0;
         margin-bottom: 10px;
         font-weight: bold;
+        text-align: center;
     }
 
     .cv-section p {
@@ -197,7 +198,7 @@
         padding: 10px 0;
     }
 
-/* Mobile-First Design */
+/* Bogger screens */
 @media (min-width: 768px) {
     .cv-header {
         flex-direction: row;
@@ -260,7 +261,7 @@
     }
 
     .skills-card ul li {
-        width: calc(50% - 10px); /* 2 columns, with gap */
+        width: calc(50% - 10px); /* 2 columns */
         margin-bottom: 20px;
     }
 }
@@ -306,6 +307,6 @@
     }
 
     .skills-card ul li {
-        width: calc(50% - 20px); /* Adjust space for bigger screens */
+        width: calc(50% - 20px); 
     }
 }

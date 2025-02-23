@@ -138,9 +138,12 @@
 
     .skills-card ul {
         padding-left: 0;
+        display: flex;
+        flex-wrap: wrap;
     }
 
         .skills-card ul li {
+            width: 100%;
             margin-bottom: 10px;
             color: #333;
         }
@@ -199,19 +202,29 @@
     .cv-header {
         flex-direction: row;
         text-align: left;
+
     }
 
     .cv-header-img {
         margin-right: 20px;
     }
 
-    .cv-header-info h1 {
-        font-size: 3rem;
+    .cv-header-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
     }
 
-    .cv-header-info h3 {
-        font-size: 2rem;
-    }
+        .cv-header-info h1 {
+            font-size: 3rem;
+            margin: 0; 
+            text-align: left;
+        }
+
+        .cv-header-info h3 {
+            font-size: 2rem;
+            margin: 5px 0 0 0;
+        }
 
     .contact-icons a {
         font-size: 2.5rem;
@@ -238,6 +251,18 @@
         display: block;
         padding-top: 10px;
     }
+
+    .cv-header-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        image-rendering: smooth; 
+    }
+
+    .skills-card ul li {
+        width: calc(50% - 10px); /* 2 columns, with gap */
+        margin-bottom: 20px;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -260,7 +285,6 @@
         cursor: pointer;
     }
 
-    /* Projects */
     .cv-projects .projects-content {
         display: none;
     }
@@ -272,5 +296,16 @@
     .cv-summary.expanded .summary-content {
         display: block;
         padding-top: 10px;
+    }
+
+    .cv-header-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        image-rendering: smooth; 
+    }
+
+    .skills-card ul li {
+        width: calc(50% - 20px); /* Adjust space for bigger screens */
     }
 }

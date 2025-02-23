@@ -1,5 +1,4 @@
 ﻿@page "/"
-
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -10,78 +9,134 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="content">
+<div class="cv-content">
+
+    <!-- Header Section -->
+    <div class="cv-header">
+        <div class="cv-header-img">
+            <img src="images/CvBuilderPhoto.jpg" alt="Profile Picture" />
+        </div>
+        <div class="cv-header-info">
+            <h1>Sara Battistella</h1>
+            <h3>.Net Cloud Developer student</h3>
+            <p> @@ IT-Högskolan </p>
+            <p class="cv-tagline">Future Software Developer</p>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="cv-section cv-contact">
+        <h2>Let's get in touch!</h2>
+        <p class="contact-icons">
+            <a href="mailto:saraschooltestcloud24@gmail.com" target="_blank">
+                <i class="fas fa-envelope contact-icon email"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/sara-battistella/" target="_blank">
+                <i class="fab fa-linkedin contact-icon linkedin"></i>
+            </a>
+            <a href="https://github.com/Sah2Sah2" target="_blank">
+                <i class="fab fa-github contact-icon github"></i>
+            </a>
+        </p>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="cv-section cv-summary" onclick="toggleSummary()">
+        <h2>Who Am I?</h2>
+        <p class="summary-content">
+            I’ve spent time in communication and marketing, and now I’m exploring the world of software development. 
+            I’m diving into the .NET world and really enjoying the process of solving problems with code. 
+            Excited to combine my creative skills with tech to build cool things!
+        </p>
+    </div>
+
+    <!-- Projects Section  -->
+    <div class="cv-section cv-projects" onclick="toggleProjects()">
+        <h2>What did I do?</h2>
+        <div class="projects-content">
+            @if (projects == null)
+            {
+                <p>Loading Projects...</p>
+            }
+            else if (projects.Count == 0)
+            {
+                <p>No Projects found.</p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var project in projects)
+                    {
+                        <li>
+                            <strong>@project.Name</strong> - @project.Course
+                            <p>@project.Description</p>
+                            <p><a href="@project.GitHubLink" target="_blank">GitHub Link</a></p>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="cv-section cv-skills" onclick="toggleSkills()">
+        <h2>What I can do:</h2>
+        <div class="skills-content">
+            @if (skills == null)
+            {
+                <p>Loading Skills...</p>
+            }
+            else if (skills.Count == 0)
+            {
+                <p>No Skills found.</p>
+            }
+            else
+            {
+                <div class="skills-card">
+                    <ul>
+                        @foreach (var skill in skills)
+                        {
+                            <li>
+                                <strong>@skill.Name</strong> - @skill.SkillLevel <br />
+                                <span>Experience: @skill.YearsOfExperience years</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
 
     <!-- Admin Icon -->
     <div class="admin-icon">
         <a href="/Admin" title="Admin Login">
-            <i class="fas fa-lock"></i> 
+            <i class="fas fa-lock"></i>
         </a>
     </div>
-
-    <!-- Circle with Picture -->
-    <div class="circle-image">
-        <img src="images/CvBuilderPhoto.jpg" alt="Profile Picture" />
-    </div>
-
-
-    <!-- Personal Information Section -->
-    <div class="personal-info">
-        <p><strong>Name:</strong> Sara </p>
-        <p><strong>Email:</strong> saraschooltestcloud24@gmail.com </p>
-        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sara-battistella/" target="_blank">linkedin.com/in/sara-battistella</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/Sah2Sah2" target="_blank">github.com/Sah2Sah2</a></p>
-    </div>
-
-    <!-- Projects Section -->
-    <h4>Projects</h4>
-    @if (projects == null)
-    {
-        <p>Loading Projects...</p>
-    }
-    else if (projects.Count == 0)
-    {
-        <p>No Projects found.</p>
-    }
-    else
-    {
-        <div class="card-container">
-            @foreach (var project in projects)
-            {
-                <div class="card">
-                    <h5>@project.Name</h5>
-                    <p><strong>Course:</strong> @project.Course</p>
-                    <p><strong>Description:</strong> @project.Description</p>
-                    <p><a href="@project.GitHubLink" target="_blank">GitHub Link</a></p>
-                </div>
-            }
-        </div>
-    }
-
-    <!-- Skills Section -->
-    <h4>Skills</h4>
-    @if (skills == null)
-    {
-        <p>Loading Skills...</p>
-    }
-    else if (skills.Count == 0)
-    {
-        <p>No Skills found.</p>
-    }
-    else
-    {
-        <div class="card-container">
-            @foreach (var skill in skills)
-            {
-                <div class="card">
-                    <h5>@skill.Name</h5>
-                    <p><strong>Level:</strong> @skill.SkillLevel</p>
-                    <p><strong>Years of Experience:</strong> @skill.YearsOfExperience</p>
-                </div>
-            }
-        </div>
-    }
 </div>
+
+<script>
+      // Toggle for Summary Section
+    function toggleSummary() {
+        const summary = document.querySelector('.cv-summary .summary-content');
+        summary.classList.toggle('expanded');
+    }
+
+    // Toggle for Projects Section
+    function toggleProjects() {
+        const projectsContent = document.querySelector('.cv-projects .projects-content');
+        if (projectsContent) {
+            projectsContent.classList.toggle('expanded');
+        }
+    }
+
+    // Toggle for Skills Section
+    function toggleSkills() {
+        const skillsContent = document.querySelector('.cv-skills .skills-content');
+        skillsContent.classList.toggle('expanded');
+    }
+
+</script>
 
 @code {
     private List<Project> projects;

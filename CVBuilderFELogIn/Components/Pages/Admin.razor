@@ -13,7 +13,6 @@
 @attribute [Authorize(Roles = "Admin")]
 
 <div class="admin-panel">
-    
     <div class="home-icon">
         <a href="/" title="Landing Page">
             <i class="fas fa-home"></i>
@@ -25,21 +24,26 @@
     <!-- Projects Section -->
     <div class="section">
         <h4>Add New Project</h4>
-        <div class="form">
-            <label for="projectName">Project Name</label>
-            <input type="text" id="projectName" @bind="newProject.Name" />
+        <EditForm Model="newProject" OnValidSubmit="CreateProject">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-            <label for="projectCourse">Course</label>
-            <input type="text" id="projectCourse" @bind="newProject.Course" />
+            <div class="form">
+                <label for="projectName">Project Name</label>
+                <InputText id="projectName" @bind-Value="newProject.Name" class="form-control" />
 
-            <label for="projectDescription">Project Description</label>
-            <textarea id="projectDescription" @bind="newProject.Description"></textarea>
+                <label for="projectCourse">Course</label>
+                <InputText id="projectCourse" @bind-Value="newProject.Course" class="form-control" />
 
-            <label for="projectGitHub">GitHub Link</label>
-            <input type="text" id="projectGitHub" @bind="newProject.GitHubLink" />
+                <label for="projectDescription">Project Description</label>
+                <InputTextArea id="projectDescription" @bind-Value="newProject.Description" class="form-control" />
 
-            <button class="btn btn-submit" @onclick="CreateProject">Add</button>
-        </div>
+                <label for="projectGitHub">GitHub Link</label>
+                <InputText id="projectGitHub" @bind-Value="newProject.GitHubLink" class="form-control" />
+
+                <button class="btn btn-submit" type="submit">Add</button>
+            </div>
+        </EditForm>
 
         <!-- Confirmation Message for Project Creation -->
         @if (!string.IsNullOrEmpty(confirmationMessageForCreateProject))
@@ -53,18 +57,23 @@
     <!-- Skills Section -->
     <div class="section">
         <h4>Add New Skill</h4>
-        <div class="form">
-            <label for="skillName">Skill Name</label>
-            <input type="text" id="skillName" @bind="newSkill.Name" />
+        <EditForm Model="newSkill" OnValidSubmit="CreateSkill">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-            <label for="skillExperience">Years of Experience</label>
-            <input type="number" id="skillExperience" @bind="newSkill.YearsOfExperience" />
+            <div class="form">
+                <label for="skillName">Skill Name</label>
+                <InputText id="skillName" @bind-Value="newSkill.Name" class="form-control" />
 
-            <label for="skillLevel">Skill Level</label>
-            <input type="number" id="skillLevel" @bind="newSkill.SkillLevel" />
+                <label for="skillExperience">Years of Experience</label>
+                <InputNumber id="skillExperience" @bind-Value="newSkill.YearsOfExperience" class="form-control" />
 
-            <button class="btn btn-submit" @onclick="CreateSkill">Add</button>
-        </div>
+                <label for="skillLevel">Skill Level</label>
+                <InputNumber id="skillLevel" @bind-Value="newSkill.SkillLevel" class="form-control" />
+
+                <button class="btn btn-submit" type="submit">Add</button>
+            </div>
+        </EditForm>
 
         <!-- Confirmation Message for Skill Creation -->
         @if (!string.IsNullOrEmpty(confirmationMessageForCreateSkill))
@@ -79,7 +88,7 @@
     <div class="section">
         <h4>Delete Project</h4>
         <div class="form">
-            <select @bind="selectedProjectId">
+            <select @bind="selectedProjectId" class="form-control">
                 <option value="">Select a project to delete</option>
                 @foreach (var project in projects)
                 {
@@ -103,7 +112,7 @@
     <div class="section">
         <h4>Delete Skill</h4>
         <div class="form">
-            <select @bind="selectedSkillId">
+            <select @bind="selectedSkillId" class="form-control">
                 <option value="">Select a skill to delete</option>
                 @foreach (var skill in skills)
                 {
@@ -124,7 +133,6 @@
     </div>
 </div>
 
-
 @code {
     private Project newProject = new Project();
     private Skill newSkill = new Skill();
@@ -139,7 +147,6 @@
     private string confirmationMessageForDeleteProject;
     private string confirmationMessageForDeleteSkill;
 
-   
     protected override async Task OnInitializedAsync()
     {
         projects = await ApiService.GetProjectsAsync();
@@ -150,12 +157,12 @@
     private async Task CreateProject()
     {
         var createdProject = await ApiService.CreateProjectAsync(newProject);
-      
-        newProject = new Project(); 
-        projects = await ApiService.GetProjectsAsync(); 
+
+        newProject = new Project();
+        projects = await ApiService.GetProjectsAsync();
 
         confirmationMessageForCreateProject = "Project created successfully!";
-        confirmationMessageForDeleteProject = null; 
+        confirmationMessageForDeleteProject = null;
     }
 
     // DELETE PROJECT
@@ -167,21 +174,21 @@
         }
 
         await ApiService.DeleteProjectAsync(selectedProjectId);
-       
-        projects = await ApiService.GetProjectsAsync(); 
-        selectedProjectId = 0; 
+
+        projects = await ApiService.GetProjectsAsync();
+        selectedProjectId = 0;
 
         confirmationMessageForDeleteProject = "Project deleted successfully!";
-        confirmationMessageForCreateProject = null; 
+        confirmationMessageForCreateProject = null;
     }
 
-    // CREATE SKILL 
+    // CREATE SKILL
     private async Task CreateSkill()
     {
         var createdSkill = await ApiService.CreateSkillAsync(newSkill);
-      
+
         newSkill = new Skill();
-        skills = await ApiService.GetSkillsAsync(); 
+        skills = await ApiService.GetSkillsAsync();
 
         confirmationMessageForDeleteSkill = null;
         confirmationMessageForCreateSkill = "Skill created successfully!";
@@ -196,11 +203,11 @@
         }
 
         await ApiService.DeleteSkillAsync(selectedSkillId);
-       
-        skills = await ApiService.GetSkillsAsync(); 
-        selectedSkillId = 0; 
+
+        skills = await ApiService.GetSkillsAsync();
+        selectedSkillId = 0;
 
         confirmationMessageForDeleteSkill = "Skill deleted successfully!";
-        confirmationMessageForCreateSkill = null; 
+        confirmationMessageForCreateSkill = null;
     }
 }

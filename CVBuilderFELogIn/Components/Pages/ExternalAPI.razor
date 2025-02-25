@@ -1,0 +1,89 @@
+﻿@page "/ExternalAPI"
+
+
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject HttpClient Http
+@inject IConfiguration Configuration
+
+@using Microsoft.AspNetCore.Components.Authorization
+@using CVBuilderFELogIn.Models
+@using CVBuilderFELogIn.Services
+
+@rendermode InteractiveServer
+
+<PageTitle>Cat Pictures</PageTitle>
+
+<div class="cat-container">
+    <!-- Home Button -->
+    <div class="home-icon">
+        <button @onclick="GoHome" title="Go to Landing Page" class="home-button">
+            <i class="fas fa-home"></i>
+        </button>
+    </div>
+
+    <h3 class="cat-title">
+        Feeling stressed after having seen all these codes? Don't worry!
+        I have the solution for you: cute cats!
+    </h3>
+
+    <div class="cat-images">
+        <button @onclick="LoadRandomCat" class="cat-button">Show Random Cat</button>
+        <div class="image-container">
+            @if (string.IsNullOrEmpty(catImageUrl))
+            {
+                <span class="loading-text">Click =^^=</span>
+            }
+            else
+            {
+                <img id="cat-image" src="@catImageUrl" alt="Random Cat" class="fade-in" />
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string catImageUrl = "";
+    private string apiKey;
+
+    protected override void OnInitialized()
+    {
+        apiKey = Configuration["CatApiSettings:ApiKey"];
+    }
+
+    private async Task LoadRandomCat()
+    {
+        try
+        {
+            var response = await Http.GetFromJsonAsync<List<CatImage>>($"https://api.thecatapi.com/v1/images/search?api_key={apiKey}");
+
+            if (response != null && response.Any())
+            {
+                catImageUrl = response[0]?.Url ?? string.Empty;
+            }
+            else
+            {
+                catImageUrl = string.Empty;
+            }
+
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading cat image: {ex.Message}");
+            catImageUrl = string.Empty;
+        }
+    }
+
+    // Navigate to home page ("/")
+    private void GoHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    public class CatImage
+    {
+        public string Url { get; set; }
+    }
+}

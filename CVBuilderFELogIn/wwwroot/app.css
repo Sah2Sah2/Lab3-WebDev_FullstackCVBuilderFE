@@ -1,14 +1,16 @@
-/* app.css - Zelda Soft Theme */
+/* General Style */
 
 /* -----COLORS-------
-Forest Green (Link's tunic) - #3D6F3E
-Gold (Triforce symbol) - #FFD700
-Royal Blue (Sky and Legend colors) - #1F3A69
-Hylian Blue (Mystical vibes) - #3B6AA0
-Earthy Brown (Woodland and natural elements) - #8B5E3C
-Light Sage (Soft, tranquil greens) - #A8BCA3*/
+Forest Green - #3D6F3E
+Gold  - #FFD700
+Royal Blue - #1F3A69
+Hylian Blue  - #3B6AA0
+Earthy Brown - #8B5E3C
+Light Sage  - #A8BCA3
 
-/* General Styles */
+    RED: #9E2A2F
+*/
+
 body {
     font-family: 'Garamond', serif;
     margin: 0;
@@ -28,6 +30,7 @@ a {
         color: #3e8e41; 
         text-decoration: underline;
     }
+
 
 /* Container */
 .content {
@@ -60,15 +63,16 @@ h3 {
 
 /* Loading and Empty Messages */
 p {
-    color: #888;
+    color: #9E2A2F;
     font-size: 1rem;
 }
 
 .error {
-    color: #d9534f;
+    color: #9E2A2F;
     font-size: 1.1rem;
     text-align: center;
 }
 
 .accent {
-    color: #f3d699; 
+    color: #f3d699;
+}

@@ -18,7 +18,6 @@ namespace CVBuilderFELogIn
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddScoped<IdentityUserAccessor>();
             builder.Services.AddScoped<IdentityRedirectManager>();
@@ -48,10 +47,21 @@ namespace CVBuilderFELogIn
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
             // Register HttpClient and get API URL from appsettings.json
-            var apiUrl = builder.Configuration.GetValue<string>("ApiBaseUrl") ?? "https://localhost:7204"; // Use fallback URL if not set
+            var apiUrl = builder.Configuration.GetValue<string>("ApiBaseUrl") ?? "https://localhost:7204"; 
             builder.Services.AddScoped(sp => new HttpClient
             {
                 BaseAddress = new Uri(apiUrl)
+            });
+
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()  
+                          .AllowAnyMethod()   
+                          .AllowAnyHeader();  
+                });
             });
 
             var app = builder.Build();
@@ -76,6 +86,9 @@ namespace CVBuilderFELogIn
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAntiforgery();
+
+            // Use the CORS middleware
+            app.UseCors("AllowAll");  
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();

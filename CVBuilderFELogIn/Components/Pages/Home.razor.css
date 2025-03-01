@@ -84,13 +84,13 @@
 
     /* Links */
     .cv-section a {
-        color: #FFD700;
+        color: #3B6AA0;
         text-decoration: none;
     }
 
         .cv-section a:hover {
             text-decoration: underline;
-            color: #FFD700;
+            color: #3B6AA0;
         }
 
 /* Contact Icons */
@@ -198,7 +198,6 @@
         padding: 10px 0;
     }
 
-/* Bogger screens */
 @media (min-width: 768px) {
     .cv-header {
         flex-direction: row;
@@ -261,7 +260,7 @@
     }
 
     .skills-card ul li {
-        width: calc(50% - 10px); /* 2 columns */
+        width: calc(50% - 10px); 
         margin-bottom: 20px;
     }
 }

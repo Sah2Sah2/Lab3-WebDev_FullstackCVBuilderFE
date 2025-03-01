@@ -1,6 +1,5 @@
 ﻿@page "/ExternalAPI"
 
-
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -15,33 +14,45 @@
 
 <PageTitle>Cat Pictures</PageTitle>
 
-<div class="cat-container">
+<section class="cat-main-section">
     <!-- Home Button -->
     <div class="home-icon">
-        <button @onclick="GoHome" title="Go to Landing Page" class="home-button">
+        <a href="/" title="Landing Page">
             <i class="fas fa-home"></i>
-        </button>
+        </a>
     </div>
 
-    <h3 class="cat-title">
-        Feeling stressed after having seen all these codes? Don't worry!
-        I have the solution for you: cute cats!
-    </h3>
-
-    <div class="cat-images">
-        <button @onclick="LoadRandomCat" class="cat-button">Show Random Cat</button>
-        <div class="image-container">
-            @if (string.IsNullOrEmpty(catImageUrl))
-            {
-                <span class="loading-text">Click =^^=</span>
-            }
-            else
-            {
-                <img id="cat-image" src="@catImageUrl" alt="Random Cat" class="fade-in" />
-            }
+    <section class="cat-text-section">
+        <div class="cat-container cat-pics">
+            <h3 class="cat-title">
+                Feeling stressed after having seen all these codes?
+                <br /> Don't worry!
+                <br /> I have the solution for you:
+                <br /> cute cats!
+            </h3>
         </div>
-    </div>
-</div>
+    </section>
+
+    <section class="cat-button-section">
+        <div class="cat-container">
+            <button @onclick="LoadRandomCat" class="cat-button">
+                <i class="fas fa-cat"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="cat-image-section">
+        <div class="cat-container cat-pics">
+            <div class="image-container">
+                @if (!string.IsNullOrEmpty(catImageUrl))
+                {
+                    <img id="cat-image" src="@catImageUrl" alt="Random Cat" />
+                }
+            </div>
+        </div>
+    </section>
+</section>
+
 
 @code {
     private string catImageUrl = "";
@@ -56,6 +67,17 @@
     {
         try
         {
+            // Get the API key from env var or from appsettings 
+            var apiKey = Environment.GetEnvironmentVariable("THE_CAT_API_KEY")
+                         ?? Configuration["CatApiSettings:ApiKey"]; // Update this path
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                Console.WriteLine("API key is missing.");
+                catImageUrl = string.Empty;
+                return;
+            }
+
             var response = await Http.GetFromJsonAsync<List<CatImage>>($"https://api.thecatapi.com/v1/images/search?api_key={apiKey}");
 
             if (response != null && response.Any())
@@ -76,7 +98,6 @@
         }
     }
 
-    // Navigate to home page ("/")
     private void GoHome()
     {
         NavigationManager.NavigateTo("/");

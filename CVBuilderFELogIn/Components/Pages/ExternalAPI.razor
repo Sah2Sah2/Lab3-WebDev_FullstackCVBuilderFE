@@ -69,7 +69,7 @@
         {
             // Get the API key from env var or from appsettings 
             var apiKey = Environment.GetEnvironmentVariable("THE_CAT_API_KEY")
-                         ?? Configuration["CatApiSettings:ApiKey"]; // Update this path
+                         ?? Configuration["CatApiSettings:ApiKey"]; // Update this in A when deployed
 
             if (string.IsNullOrEmpty(apiKey))
             {

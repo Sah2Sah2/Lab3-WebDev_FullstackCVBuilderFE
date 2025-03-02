@@ -39,7 +39,7 @@ namespace CVBuilderFELogIn
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<IdentityRole>() // Role support
+                .AddRoles<IdentityRole>() 
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
@@ -47,11 +47,14 @@ namespace CVBuilderFELogIn
             builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
             // Register HttpClient and get API URL from appsettings.json
-            var apiUrl = builder.Configuration.GetValue<string>("ApiBaseUrl") ?? "https://localhost:7204"; 
-            builder.Services.AddScoped(sp => new HttpClient
+            var apiUrl = builder.Configuration["ApiBaseUrl"];
+            if (string.IsNullOrEmpty(apiUrl))
             {
-                BaseAddress = new Uri(apiUrl)
-            });
+                apiUrl = builder.Environment.IsDevelopment()
+                    ? "https://localhost:7204" // Local API
+                    : builder.Configuration["ApiBaseUrl"]; // Azure API
+            }
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiUrl) });
 
             // CORS
             builder.Services.AddCors(options =>
@@ -93,7 +96,6 @@ namespace CVBuilderFELogIn
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
-            // Add additional endpoints required by the Identity /Account Razor components.
             app.MapAdditionalIdentityEndpoints();
 
             await app.RunAsync();

@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.sample.json" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <None Include="appsettings.sample.json" />
   </ItemGroup>
 
   <ItemGroup>

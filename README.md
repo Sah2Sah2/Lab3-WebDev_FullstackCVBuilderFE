@@ -5,6 +5,9 @@ This repository contains the third assignment for the **Web Development** course
 The project is a **full-stack application** consisting of a Blazor Web App Server front-end and a .NET API that performs **CRUD operations** on a **SQL database**. 
 The application is hosted in **Azure** and communicates with the API to manage user data.
 
+CV Builder Website: 📝 [Fullstack CV Builder](https://sarabattistellacvbuilder-amdrescncta9cxc0.westeurope-01.azurewebsites.net/)
+
+
 ### Task Description  
 
 The task was to create a full-stack application where:  
